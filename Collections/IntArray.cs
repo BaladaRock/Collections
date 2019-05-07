@@ -15,7 +15,7 @@ namespace CollectionsClasses
 
         public void Add(int element)
         {
-            ResizeArray();
+            EnsureCapacity();
             array[numberOfElements++] = element;
         }
 
@@ -61,7 +61,7 @@ namespace CollectionsClasses
         public void Insert(int index, int element)
         {
             if (index == array.Length + 1)
-                ResizeArray();
+                EnsureCapacity();
                
             ShiftRight(index);
             array[index] = element;
@@ -80,9 +80,14 @@ namespace CollectionsClasses
 
         public void RemoveAt(int index)
         {
+            ShiftLeft(index);
+            numberOfElements--;
+        }
+
+        private void ShiftLeft(int index)
+        {
             for (int i = index; i < numberOfElements - 1; i++)
                 array[i] = array[i + 1];
-            numberOfElements--;
         }
 
         private void ShiftRight(int index)
@@ -91,7 +96,7 @@ namespace CollectionsClasses
                 array[i] = array[i - 1];
         }
 
-        private void ResizeArray()
+        private void EnsureCapacity()
         {
             if (numberOfElements == array.Length)
                 Array.Resize(ref array, array.Length * 2);
