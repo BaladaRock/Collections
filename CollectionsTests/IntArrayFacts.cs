@@ -1,4 +1,4 @@
-using System;
+
 using Xunit;
 using CollectionsClasses;
 namespace CollectionsTests
@@ -120,5 +120,138 @@ namespace CollectionsTests
 
             Assert.False(array.Contains(10));
         }
+
+        [Fact]
+        public void Test_IndexOf_Should_Return_Correct_Index_When_Array_Contains_Given_Element()
+        {
+            IntArray array = AddedArray(1, 2, 3, 4, 5, 6);
+
+            Assert.Equal(3,array.IndexOf(4));
+        }
+
+        [Fact]
+        public void Test_IndexOf_Should_Return_Negative_When_Array_Does_NotContains_Given_Element()
+        {
+            IntArray array = AddedArray(1, 2, 3, 4, 5, 6);
+
+            Assert.Equal(-1, array.IndexOf(100));
+        }
+
+        [Fact]
+        public void Test_Clear_Should_Remove_all_elements_4_elements_Array()
+        {
+            //Given
+            IntArray array = AddedArray(1, 2, 3, 4, 5, 6);
+            //When
+            array.Clear();
+            //Then
+            Assert.Equal(0, array.Count());
+            
+        }
+
+        [Fact]
+        public void Test_Insert_Should_Correctly_Insert_Element_when_Array_Is_Shorter_Then_4()
+        {
+            //Given
+            IntArray array = AddedArray(1, 2, 3);
+            //When
+            array.Insert(1,5);
+            //Then
+            Assert.Equal(1, array.IndexOf(5));
+            
+        }
+
+        [Fact]
+        public void Test_Insert_Should_Correctly_Insert_Element_when_Array_Is_Longer_Then_4()
+        { 
+            //Given
+            IntArray array = AddedArray(1, 2, 3 , 4 , 5, 6, 7, 8);
+            //When
+            array.Insert(5, 100);
+            //Then
+            Assert.Equal(5, array.IndexOf(100));
+        }
+
+        [Fact]
+        public void Test_Insert_Should_Correctly_Insert_Element_At_Middle_Position()
+        {
+            //Given
+            IntArray array = AddedArray(1, 2, 3, 4, 5, 6, 7, 8);
+            //When
+            array.Insert(3, 100);
+            //Then
+            Assert.Equal(3, array.IndexOf(100));
+            Assert.Equal(9, array.Count());
+            
+        }
+
+        [Fact]
+        public void Test_Insert_Should_Correctly_Insert_Element_At_Last_Position()
+        {
+            //Given
+            IntArray array = AddedArray(1, 2, 3, 4);
+            //When
+            array.Insert(3, 100);
+            //Then
+            Assert.Equal(3, array.IndexOf(100));
+            Assert.Equal(5, array.Count());
+
+        }
+
+        [Fact]
+        public void Test_Remove_Should_Correctly_Remove_Element_Simple_Array()
+        {
+            //Given
+            IntArray array = AddedArray(1, 2, 3, 4);
+            //When
+            array.Remove(4);
+            //Then
+            Assert.Equal(-1, array.IndexOf(4));
+            //Assert.Equal(2, array.IndexOf(4));
+            Assert.Equal(3, array.Count());
+
+        }
+
+        [Fact]
+        public void Test_Remove_Should_Correctly_Remove_Element_5_Elements_Array()
+        {
+            //Given
+            IntArray array = AddedArray(1, 2, 3, 4,5);
+            //When
+            array.Remove(5);
+            //Then
+            Assert.Equal(-1, array.IndexOf(5));
+            Assert.Equal(3, array.IndexOf(4));
+            Assert.Equal(4, array.Count());
+
+        }
+
+
+        [Fact]
+        public void Test_Remove_Should_Correctly_Remove_Element_1_Element_Array()
+        {
+            //Given
+            IntArray array = AddedArray(1);
+            //When
+            array.Remove(1);
+            //Then
+            Assert.Equal(-1, array.IndexOf(1));
+            Assert.Equal(0, array.Count());
+
+        }
+
+        [Fact]
+        public void Test_RemoveAt_Should_Correctly_Remove_Element_Index_Is_1()
+        {
+            //Given
+            IntArray array = AddedArray(1,2,3);
+            //When
+            array.RemoveAt(1);
+            //Then
+            Assert.Equal(-1, array.IndexOf(2));
+            Assert.Equal(2, array.Count());
+
+        }
+
     }
 }
