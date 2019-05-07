@@ -1,64 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CollectionsClasses
 {
     public class IntArray
     {
-        private int capacity;
         private int numberOfElements;
         private int[] array;
 
         public IntArray()
         {
-            capacity = 4;
             numberOfElements = 0;
-            array = new int[capacity];
+            array = new int[4];
         }
 
         public void Add(int element)
         {
-            // adaugă un nou element la sfârșitul șirului
-
-            if (numberOfElements == capacity - 1)
-            {
-                capacity = 2 * capacity;
-                int[] tempArray = new int[capacity];
-                for (int i = 0; i < numberOfElements; i++)
-                    tempArray[i] = array[i];
-                array = tempArray;
-            }
+            ResizeArray();
             array[numberOfElements++] = element;
         }
 
         public int Count()
         {
-            // întorce numărul de elemente din șir
             return numberOfElements;
         }
 
         public int Element(int index)
         {
-            // întoarce elementul de la indexul dat
             if (index < 0 || index >= numberOfElements)
                 return -1;
             return array[index];
+
         }
 
         public void SetElement(int index, int element)
         {
-            // modifică valoarea elementul de la indexul dat
-            if(index>=0 && index<numberOfElements)
+            if (index >= 0 && index < numberOfElements)
                 array[index] = element;
         }
 
         public bool Contains(int element)
         {
-            // întoarce true dacă elementul dat există în șir
-            for(int i=0;i<numberOfElements;i++)
+            for (int i = 0; i < numberOfElements; i++)
             {
-                if(array[i]==element)
+                if (array[i] == element)
                     return true;
             }
             return false;
@@ -66,29 +50,51 @@ namespace CollectionsClasses
 
         public int IndexOf(int element)
         {
-            // întoarce indexul elementului sau -1 dacă elementul nu se
-            // regăsește în șir
-            return 0;
+            for (int i = 0; i < numberOfElements; i++)
+            {
+                if (array[i] == element)
+                    return i;
+            }
+            return -1;
         }
 
         public void Insert(int index, int element)
         {
-            // adaugă un nou element pe poziția dată
+            if (index == array.Length + 1)
+                ResizeArray();
+               
+            ShiftRight(index);
+            array[index] = element;
+            numberOfElements++;
         }
 
         public void Clear()
         {
-            // șterge toate elementele din șir
+            numberOfElements = 0;
         }
 
         public void Remove(int element)
         {
-            // șterge prima apariție a elementului din șir	
+            RemoveAt(IndexOf(element));
         }
 
         public void RemoveAt(int index)
         {
-            // șterge elementul de pe poziția dată
+            for (int i = index; i < numberOfElements - 1; i++)
+                array[i] = array[i + 1];
+            numberOfElements--;
+        }
+
+        private void ShiftRight(int index)
+        {
+            for (int i = numberOfElements - 1; i > index; i--)
+                array[i] = array[i - 1];
+        }
+
+        private void ResizeArray()
+        {
+            if (numberOfElements == array.Length)
+                Array.Resize(ref array, array.Length * 2);
         }
     }
 }
