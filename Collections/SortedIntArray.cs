@@ -44,13 +44,7 @@ namespace CollectionsClasses
         public override void Insert(int index, int element)
         {
             if (CheckInsertion(index, element))
-            {
-                EnsureCapacity();
-                ShiftRight(index);
-                array[index] = element;
-                Count++;
-            }
-
+                InsertElement(index, element);
         }
 
         private bool CheckInsertion(int index, int element)

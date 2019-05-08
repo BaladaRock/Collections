@@ -48,6 +48,11 @@ namespace CollectionsClasses
 
         public virtual void Insert(int index, int element)
         {
+            InsertElement(index, element);
+        }
+
+        protected void InsertElement(int index, int element)
+        {
             EnsureCapacity();
             ShiftRight(index);
             array[index] = element;
