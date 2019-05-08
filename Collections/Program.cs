@@ -6,10 +6,11 @@ namespace CollectionsClasses
     {
         static void Main(string[] args)
         {
-            var intArray = new IntArray();
-            intArray.Add(1);
-            intArray[0] = 2;
-            System.Console.WriteLine(intArray[0]);
+            var sortedIntArray = new SortedIntArray();
+            sortedIntArray.Add(1);
+            sortedIntArray[0] = 2;
+            System.Console.WriteLine(sortedIntArray[0]);
+
             Console.ReadLine();
         }
     }

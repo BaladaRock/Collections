@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 
 namespace CollectionsClasses
 {
     public class IntArray
     {
-        private int[] array;
+        protected int[] array;
 
         public IntArray()
         {
@@ -13,15 +12,15 @@ namespace CollectionsClasses
             array = new int[4];
         }
 
-        public int Count { get; private set; }
+        public int Count { get; protected set; }
         
-        public int this[int index]
+        public virtual int this[int index]
         {
             get => array[index];
             set => array[index] = value;
         }
         
-        public void Add(int element)
+        public virtual void Add(int element)
         {
             EnsureCapacity();
             array[Count++] = element;
@@ -47,7 +46,7 @@ namespace CollectionsClasses
             return -1;
         }
 
-        public void Insert(int index, int element)
+        public virtual void Insert(int index, int element)
         {
             EnsureCapacity();
             ShiftRight(index);
@@ -77,13 +76,13 @@ namespace CollectionsClasses
                 array[i] = array[i + 1];
         }
 
-        private void ShiftRight(int index)
+        protected void ShiftRight(int index)
         {
             for (int i = Count; i > index; i--)
                 array[i] = array[i - 1];
         }
 
-        private void EnsureCapacity()
+        protected void EnsureCapacity()
         {
             if (Count == array.Length)
                 Array.Resize(ref array, array.Length * 2);
