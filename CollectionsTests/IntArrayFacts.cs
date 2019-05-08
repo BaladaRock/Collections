@@ -5,7 +5,7 @@ namespace CollectionsTests
 {
     public class IntArrayFacts
     {
-        private IntArray AddedArray(params int[] numbers)
+        protected IntArray AddedArray(params int[] numbers)
         {
             IntArray array = new IntArray();
             foreach (var number in numbers)
@@ -128,6 +128,14 @@ namespace CollectionsTests
         }
 
         [Fact]
+        public void Test_IndexOf_Should_Return_Correct_Index_When_Array_Contains_2_Elements()
+        {
+            IntArray array = AddedArray(2, 1);
+
+            Assert.Equal(0, array.IndexOf(2));
+        }
+
+        [Fact]
         public void Test_IndexOf_Should_Return_Negative_When_Array_Does_NotContains_Given_Element()
         {
             IntArray array = AddedArray(1, 2, 3, 4, 5, 6);
@@ -208,19 +216,46 @@ namespace CollectionsTests
             
         }
 
-      /*  [Fact]
-        public void Test_Insert_Should_Correctly_Insert_Element_Index_Is_Larger_Then_Length()
+        [Fact]
+        public void Test_Insert_Should_Correctly_Insert_Element_Array_Has_Exactly_3_elements()
         {
             //Given
-            IntArray array = AddedArray(1, 2, 3, 4);
+            IntArray array = AddedArray(1, 2, 3);
             //When
-            array.Insert(900, 100);
+            array.Insert(1, 100);
             //Then
+            array.Add(10);
             Assert.Equal(1, array.IndexOf(100));
-            Assert.Equal(3, array.IndexOf(4));
-            Assert.Equal(4, array.Count);
+            Assert.Equal(3, array.IndexOf(3));
+            Assert.Equal(5, array.Count);
 
-        }*/
+        }
+
+        [Fact]
+        public void Test_Insert_Should_Correctly_Insert_Element_1_element_array()
+        {
+            //Given
+            IntArray array = AddedArray(1);
+            //When
+            array.Insert(0, 100);
+            //Then
+            Assert.Equal(0, array.IndexOf(100));
+            Assert.Equal(2, array.Count);
+        }
+
+        /*  [Fact]
+          public void Test_Insert_Should_Correctly_Insert_Element_Index_Is_Larger_Then_Length()
+          {
+              //Given
+              IntArray array = AddedArray(1, 2, 3, 4);
+              //When
+              array.Insert(900, 100);
+              //Then
+              Assert.Equal(1, array.IndexOf(100));
+              Assert.Equal(3, array.IndexOf(4));
+              Assert.Equal(4, array.Count);
+
+          }*/
 
 
         [Fact]
