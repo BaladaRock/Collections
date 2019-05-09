@@ -185,7 +185,7 @@ namespace CollectionsTests
         {
             var array = new SortedIntArray();
             array[0] = 3;
-            Assert.Equal(3, array[0]);
+            Assert.Equal(0, array.Count);
         }
     }
 }
