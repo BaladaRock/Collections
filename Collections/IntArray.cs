@@ -6,10 +6,10 @@ namespace CollectionsClasses
     {
         protected int[] array;
 
-        public IntArray()
+        public IntArray(int capacity = 4)
         {
             Count = 0;
-            array = new int[4];
+            array = new int[capacity];
         }
 
         public int Count { get; protected set; }

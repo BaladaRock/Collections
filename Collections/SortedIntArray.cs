@@ -1,44 +1,23 @@
-﻿using System;
-
-namespace CollectionsClasses
+﻿namespace CollectionsClasses
 {
     public class SortedIntArray : IntArray
     {
-
-        public SortedIntArray()
-        {
-            Count = 0;
-            array = new int[4];
-        }
-
-        public override void Add(int element)
-        {
-
-            if (Count == 0 || element >= array[Count - 1])
-            {
-                array[Count++] = element;
-                return;
-            }
-
-
-            for (int i = array.Length - 1; i >= 0; i--)
-            {
-                if (element <= array[i])
-                {
-                    Insert(i, element);
-                    break;
-                }
-            }
-
-        }
+        public SortedIntArray(int capacity = 4)
+            : base(capacity) { }
 
         public override int this[int index]
         {
             set
             {
-              if(CheckSetElement(index,value))
-                array[index] = value;
+                if (CheckSetElement(index, value))
+                    array[index] = value;
             }
+        }
+
+        public override void Add(int element)
+        {
+            int index = FindOrderedPosition(element);
+            Insert(index, element);
         }
 
         public override void Insert(int index, int element)
@@ -49,20 +28,31 @@ namespace CollectionsClasses
 
         private bool CheckInsertion(int index, int element)
         {
-            return CheckSetElement(index, element);
+            return 0 <= index && index <= Count
+                && (index == 0 || array[index - 1] <= element)
+                && (index == Count || element <= array[index]);
         }
 
         private bool CheckSetElement(int index, int element)
         {
-            if (index == 0)
-                return Count <= 1 || element <= array[0];
-            return CheckNeighbours(index, element);
+            int upperLimit = index + 1;
+            return 0 <= index && index < Count
+                && (index == 0 || array[index - 1] <= element)
+                && (upperLimit == Count || element <= array[upperLimit]);
         }
 
-        private bool CheckNeighbours(int index, int element)
+        private int FindOrderedPosition(int element)
         {
-             return (element <= array[index + 1] || element <= array[index])
-                 && element >= array[index - 1];
+            int index = Count;
+            for (int i = 0; i < Count; i++)
+            {
+                if (element <= array[i])
+                {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
         }
     }
 }
