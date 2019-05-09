@@ -9,7 +9,10 @@ namespace CollectionsClasses
             var sortedIntArray = new SortedIntArray();
             sortedIntArray.Add(1);
             sortedIntArray[0] = 2;
-            System.Console.WriteLine(sortedIntArray[0]);
+
+            var objectArray = new ObjectArray(4);
+            objectArray.Add(new SortedIntArray(4));
+
 
             Console.ReadLine();
         }

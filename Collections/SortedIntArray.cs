@@ -10,7 +10,7 @@
             set
             {
                 if (CheckSetElement(index, value))
-                    array[index] = value;
+                    base[index] = value;
             }
         }
 
@@ -23,22 +23,22 @@
         public override void Insert(int index, int element)
         {
             if (CheckInsertion(index, element))
-                InsertElement(index, element);
+                base.Insert(index, element);
         }
 
         private bool CheckInsertion(int index, int element)
         {
             return 0 <= index && index <= Count
-                && (index == 0 || array[index - 1] <= element)
-                && (index == Count || element <= array[index]);
+                && (index == 0 || base[index - 1] <= element)
+                && (index == Count || element <= base[index]);
         }
 
         private bool CheckSetElement(int index, int element)
         {
             int upperLimit = index + 1;
             return 0 <= index && index < Count
-                && (index == 0 || array[index - 1] <= element)
-                && (upperLimit == Count || element <= array[upperLimit]);
+                && (index == 0 || base[index - 1] <= element)
+                && (upperLimit == Count || element <= base[upperLimit]);
         }
 
         private int FindOrderedPosition(int element)
@@ -46,7 +46,7 @@
             int index = Count;
             for (int i = 0; i < Count; i++)
             {
-                if (element <= array[i])
+                if (element <= base[i])
                 {
                     index = i;
                     break;
