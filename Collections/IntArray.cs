@@ -3,7 +3,7 @@ namespace CollectionsClasses
 {
     public class IntArray
     {
-        readonly ObjectArray array;
+        private readonly ObjectArray array;
 
         public IntArray(int capacity = 4)
         {
