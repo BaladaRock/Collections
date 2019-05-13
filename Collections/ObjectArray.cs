@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections;
 
 namespace CollectionsClasses
 {
-    public class ObjectArray
+    public class ObjectArray : IEnumerable
     {
-
         protected object[] array;
 
         public ObjectArray(int capacity = 4)
@@ -14,6 +14,7 @@ namespace CollectionsClasses
         }
 
         public int Count { get; private set; }
+
 
         public virtual object this[int index]
         {
@@ -92,7 +93,14 @@ namespace CollectionsClasses
                 Array.Resize(ref array, array.Length * 2);
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator)GetEnumerator();
+        }
 
-
+        public ObjectEnumerator GetEnumerator()
+        {
+            return new ObjectEnumerator(array);
+        }
     }
 }

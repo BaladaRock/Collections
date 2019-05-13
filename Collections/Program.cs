@@ -6,12 +6,13 @@ namespace CollectionsClasses
     {
         static void Main(string[] args)
         {
-            var sortedIntArray = new SortedIntArray();
-            sortedIntArray.Add(1);
-            sortedIntArray[0] = 2;
+            object a = (object)2;
+            object b = (object)3;
+            var array = new ObjectArray { a, b, a, b, a };
 
-            var objectArray = new ObjectArray(4);
-            objectArray.Add(new SortedIntArray(4));
+            foreach (var v in array)
+                Console.WriteLine((int)v);
+            
 
 
             Console.ReadLine();
