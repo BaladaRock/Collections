@@ -51,13 +51,13 @@ namespace CollectionsTests
         public void Test_IndexOf_Object_Array_of_Booleans()
         {
 
-            var stringArray = new ObjectArray();
-            stringArray.Add(true);
-            stringArray.Add(false);
+            var boolArray = new ObjectArray();
+            boolArray.Add(true);
+            boolArray.Add(false);
 
-            Assert.False(stringArray.Contains("eu"));
-            Assert.False(stringArray.Contains(null));
-            Assert.Equal(0, stringArray.IndexOf(true));
+            Assert.False(boolArray.Contains("eu"));
+            Assert.False(boolArray.Contains(null));
+            Assert.Equal(0, boolArray.IndexOf(true));
 
         }
 
@@ -65,21 +65,21 @@ namespace CollectionsTests
         public void Test_Insert_Object_Mixed_Array()
         {
 
-            var stringArray = new ObjectArray();
-            stringArray.Add(true);
-            stringArray.Add(false);
-            stringArray.Add("IT");
-            stringArray.Add(null);
-            stringArray.Add(string.Empty);
-            stringArray.Add(int.MaxValue);
-            stringArray.Insert(1, 1);
-            stringArray.Insert(4, string.Empty);
+            var mixedArray = new ObjectArray();
+            mixedArray.Add(true);
+            mixedArray.Add(false);
+            mixedArray.Add("IT");
+            mixedArray.Add(null);
+            mixedArray.Add(string.Empty);
+            mixedArray.Add(int.MaxValue);
+            mixedArray.Insert(1, 1);
+            mixedArray.Insert(4, string.Empty);
 
-            Assert.False(stringArray.Contains("eu"));
-            Assert.True(stringArray.Contains(null));
-            Assert.Equal(0, stringArray.IndexOf(true));
-            Assert.Equal(1, stringArray.IndexOf(1));
-            Assert.Equal(8, stringArray.Count);
+            Assert.False(mixedArray.Contains("eu"));
+            Assert.True(mixedArray.Contains(null));
+            Assert.Equal(0, mixedArray.IndexOf(true));
+            Assert.Equal(1, mixedArray.IndexOf(1));
+            Assert.Equal(8, mixedArray.Count);
 
         }
         
