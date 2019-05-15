@@ -38,7 +38,7 @@ namespace CollectionsClasses
             for (int i = 0; i < Count; i++)
             {
                 if (array[i] == element
-                 ||(array[i]?.Equals(element) == true))
+                 || (array[i]?.Equals(element) == true))
                 {
                     return i;
                 }
@@ -95,15 +95,8 @@ namespace CollectionsClasses
 
         public IEnumerator GetEnumerator()
         {
-            int position = -1;
-            while(position < Count)
-            {
-                position++;
-                if (position == Count)
-                    yield break;
-
-                yield return array[position];
-            }
+            for (int i = 0; i < Count; i++)
+                yield return array[i];
         }
     }
 }
