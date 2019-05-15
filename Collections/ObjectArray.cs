@@ -93,14 +93,17 @@ namespace CollectionsClasses
                 Array.Resize(ref array, array.Length * 2);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public IEnumerator GetEnumerator()
         {
-            return (IEnumerator)GetEnumerator();
-        }
+            int position = -1;
+            while(position < Count)
+            {
+                position++;
+                if (position == Count)
+                    yield break;
 
-        public ObjectEnumerator GetEnumerator()
-        {
-            return new ObjectEnumerator(array);
+                yield return array[position];
+            }
         }
     }
 }

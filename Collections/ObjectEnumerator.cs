@@ -1,28 +1,37 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace CollectionsClasses
 {
     public class ObjectEnumerator : IEnumerator
     {
-
-        private readonly ObjectArray objectArray = new ObjectArray();
-        private readonly object[] array;
+        private readonly ObjectArray array;
         private int position = -1;
 
-        public ObjectEnumerator(object[] array)
+        public ObjectEnumerator(ObjectArray array)
         {
             this.array = array;
         }
 
         public object Current
         {
-            get => array[position];
+            get
+            {
+                try
+                {
+                    return array[position];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    throw new InvalidOperationException();
+                }
+            }
         }
 
         public bool MoveNext()
         {
             position++;
-            return position <= objectArray.Count;
+            return position < array.Count;
         }
 
         public void Reset()
