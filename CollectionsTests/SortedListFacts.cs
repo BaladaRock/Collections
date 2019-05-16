@@ -3,7 +3,7 @@ using CollectionsClasses;
 
 namespace CollectionsTests
 {
-    public class SortedIntListFacts
+    public class SortedListFacts
     {
         [Fact]
         public void Test_Add_Method_IntList_Should_Be_Sorted_2_elements()
