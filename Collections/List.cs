@@ -118,7 +118,7 @@ namespace CollectionsClasses
         public void CopyTo(T[] array, int arrayIndex)
         {
             int countElements = 0;
-            if (CheckArrayCapacity(array,arrayIndex) && arrayIndex >= 0)
+            if (CheckArrayCapacity(array,arrayIndex))
             {
                 for (int i = arrayIndex; i < Count + arrayIndex; i++)
                     array[i] = this.array[countElements++];
@@ -127,7 +127,9 @@ namespace CollectionsClasses
 
         private bool CheckArrayCapacity(T[] array, int arrayIndex)
         {
-            return array.Length >= Count+arrayIndex;
+            if (arrayIndex < 0 || arrayIndex >= array.Length)
+                return false;
+            return array.Length >= Count + arrayIndex;
         }
 
         public static (T, T) Swap(T a, T b) => (b, a);
