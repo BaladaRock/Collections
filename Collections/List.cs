@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CollectionsClasses
 {
-    public class List<T> : IEnumerable<T>
+    public class List<T> : IList<T>
     {
         protected T[] array;
 
@@ -16,6 +16,7 @@ namespace CollectionsClasses
 
         public int Count { get; private set; }
 
+        public bool IsReadOnly { get; }
 
         public virtual T this[int index]
         {
@@ -23,23 +24,23 @@ namespace CollectionsClasses
             set => array[index] = value;
         }
 
-        public virtual void Add(T element)
+        public virtual void Add(T item)
         {
             EnsureCapacity();
-            array[Count++] = element;
+            array[Count++] = item;
         }
 
-        public bool Contains(T element)
+        public bool Contains(T item)
         {
-            return IndexOf(element) != -1;
+            return IndexOf(item) != -1;
         }
 
-        public int IndexOf(T element)
+        public int IndexOf(T item)
         {
             for (int i = 0; i < Count; i++)
             {
-                if (CheckForNullValue(element, array[i])
-                 || element?.Equals(array[i]) == true)
+                if (CheckForNullValue(item, array[i])
+                 || item?.Equals(array[i]) == true)
                 {
                     return i;
                 }
@@ -47,16 +48,16 @@ namespace CollectionsClasses
             return -1;
         }
 
-        public virtual void Insert(int index, T element)
+        public virtual void Insert(int index, T item)
         {
-            InsertElement(index, element);
+            InsertItem(index, item);
         }
 
-        private void InsertElement(int index, T element)
+        private void InsertItem(int index, T item)
         {
             EnsureCapacity();
             ShiftRight(index);
-            array[index] = element;
+            array[index] = item;
             Count++;
         }
 
@@ -65,9 +66,13 @@ namespace CollectionsClasses
             Count = 0;
         }
 
-        public void Remove(T element)
+        public bool Remove(T item)
         {
-            RemoveAt(IndexOf(element));
+            int checkRemove = Count;
+            if (IndexOf(item) < 0)
+                return false;
+            RemoveAt(IndexOf(item));
+            return Count != checkRemove;
         }
 
         public void RemoveAt(int index)
@@ -94,9 +99,9 @@ namespace CollectionsClasses
                 Array.Resize(ref array, array.Length * 2);
         }
 
-        private bool CheckForNullValue(T searchedElement, T listElement)
+        private bool CheckForNullValue(T searchedItem, T listItem)
         {
-            return searchedElement == null && listElement == null;
+            return searchedItem == null && listItem == null;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -109,5 +114,22 @@ namespace CollectionsClasses
         {
             return GetEnumerator();
         }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            int countElements = 0;
+            if (CheckArrayCapacity(array,arrayIndex) && arrayIndex >= 0)
+            {
+                for (int i = arrayIndex; i < Count + arrayIndex; i++)
+                    array[i] = this.array[countElements++];
+            }
+        }
+
+        private bool CheckArrayCapacity(T[] array, int arrayIndex)
+        {
+            return array.Length >= Count+arrayIndex;
+        }
+
+        public static (T, T) Swap(T a, T b) => (b, a);
     }
 }
