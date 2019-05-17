@@ -80,7 +80,6 @@ namespace CollectionsTests
             Assert.True(enumerator.MoveNext());
             Assert.Equal(b, enumerator.Current);
             Assert.False(enumerator.MoveNext());
-
         }
 
         [Fact]
@@ -95,12 +94,10 @@ namespace CollectionsTests
 
             // This section will be tested only after implementing Throw() Exceptions
             //Assert.Null(enumerator.Current);
-            //When
             // ObjectEnumerator.Reset() method can only be used when using an auxiliary class
             // to implement the enumerating attribute.
             // enumerator.Reset();
-            //Then
-            //Assert.Null(enumerator.Current);
+
         }
 
     }
