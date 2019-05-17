@@ -68,11 +68,11 @@ namespace CollectionsClasses
 
         public bool Remove(T item)
         {
-            int checkRemove = Count;
-            if (IndexOf(item) < 0)
+            int index = IndexOf(item);
+            if (index < 0)
                 return false;
-            RemoveAt(IndexOf(item));
-            return Count != checkRemove;
+            RemoveAt(index);
+            return true;
         }
 
         public void RemoveAt(int index)
