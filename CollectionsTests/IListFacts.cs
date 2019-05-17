@@ -130,5 +130,19 @@ namespace CollectionsTests
             Assert.Equal(3, array[2]);
         }
 
+        [Fact]
+        public void Copy_List_To_Array_When_Array_Is_Empty()
+        {
+            //Given
+            var intList = new List<int> { 1, 2, 3 };
+            int[] array = new int[1];
+            //When
+            intList.CopyTo(array, 0);
+            //Then
+            Assert.Equal(0, array[0]);
+            
+        }
+
+
     }
 }
