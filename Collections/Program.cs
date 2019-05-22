@@ -6,11 +6,14 @@ namespace CollectionsClasses
     {
         static void Main(string[] args)
         {
-            object a = 2;
-            object b = 3;
-            foreach (var v in new List<object> { a, b, a, b, a })
-               Console.WriteLine((int)v);
+            var list = new List<int> { 1, 2, 3 };
+            list.RemoveAt(0);
+            list.Clear();
+            foreach(var number in list)
+                Console.WriteLine(number);
 
+            //Should throw ArgumentException
+            Console.WriteLine(list[0]);
             Console.ReadLine();
         }
     }

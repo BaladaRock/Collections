@@ -13,20 +13,7 @@ namespace CollectionsClasses
             this.array = array;
         }
 
-        public object Current
-        {
-            get
-            {
-                try
-                {
-                    return array[position];
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-        }
+        public object Current => array[position];
 
         T IEnumerator<T>.Current => (T)Current;
 
