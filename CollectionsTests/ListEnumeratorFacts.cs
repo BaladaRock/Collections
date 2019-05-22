@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using CollectionsClasses;
+using System;
 
 namespace CollectionsTests
 {
@@ -87,13 +88,16 @@ namespace CollectionsTests
         {
             //Given
             var array = new List<int>();
+
+            var arrayEnumerator = new ListEnumerator<int>(array);
             //When
             var enumerator = array.GetEnumerator();
             //Then
             Assert.False(enumerator.MoveNext());
 
-            // This section will be tested only after implementing Throw() Exceptions
-            //Assert.Null(enumerator.Current);
+            Exception ex = Assert.Throws<ArgumentException>(() => arrayEnumerator.Current);
+            Assert.Equal("List is empty!", ex.Message);
+
             // ObjectEnumerator.Reset() method can only be used when using an auxiliary class
             // to implement the enumerating attribute.
             // enumerator.Reset();

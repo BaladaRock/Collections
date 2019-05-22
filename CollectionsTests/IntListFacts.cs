@@ -1,4 +1,4 @@
-
+using System;
 using Xunit;
 using CollectionsClasses;
 namespace CollectionsTests
@@ -17,7 +17,6 @@ namespace CollectionsTests
         [Fact]
         public void Test_Count_Should_Return_0_When_Array_Is_Empty()
         {
-
             var array = new IntList();
             Assert.Equal(0, array.Count);
         }
@@ -25,7 +24,6 @@ namespace CollectionsTests
         [Fact]
         public void Test_Count_Should_Return_Correctly_Array_Is_Full()
         {
-
             var array = AddedArray(1, 2, 3, 4);
             Assert.Equal(4, array.Count);
         }
@@ -66,20 +64,6 @@ namespace CollectionsTests
             Assert.Equal(1, array[0]);
         }
 
-       /* [Fact]
-        public void Test_Element_Should_Return_Negative_When_Index_Is_Larger_Then_Array_Capacity()
-        {
-            IntArray array = AddedArray(1);
-            Assert.Equal(-1, array[5]);
-        }
-
-        [Fact]
-        public void Test_Element_Should_Return_Negative__When_Element_Is_Smaller_Then_0()
-        {
-            IntArray array = AddedArray(1);
-            Assert.Equal(-1, array[-10]);
-        }*/
-
         [Fact]
         public void Test_Element_Should_Access_Array_Correctly_For_Larger_Array()
         {
@@ -91,7 +75,7 @@ namespace CollectionsTests
         public void Test_SetElement_Should_Set__Element_For_Simple_Array()
         {
             IntList array = AddedArray(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, int.MaxValue);
-            array[10]=220;
+            array[10] = 220;
             Assert.Equal(220, array[10]);
         }
 
@@ -99,7 +83,6 @@ namespace CollectionsTests
         public void Test_Contains_Should_Return_True_When_Array_Contains_Wanted_Value()
         {
             IntList array = AddedArray(1, 2, 3, 4, 5, 6);
-
             Assert.True(array.Contains(5));
         }
 
@@ -107,7 +90,6 @@ namespace CollectionsTests
         public void Test_Contains_Should_Return_False_When_Array_Does_Not_Contain_Wanted_Value()
         {
             IntList array = AddedArray(1, 2, 3, 4, 5, 6);
-
             Assert.False(array.Contains(10));
         }
 
@@ -115,7 +97,6 @@ namespace CollectionsTests
         public void Test_Contains_Should_Return_False__For_Empty_Array()
         {
             IntList array = new IntList();
-
             Assert.False(array.Contains(10));
         }
 
@@ -123,7 +104,6 @@ namespace CollectionsTests
         public void Test_IndexOf_Should_Return_Correct_Index_When_Array_Contains_Given_Element()
         {
             IntList array = AddedArray(1, 2, 3, 4, 5, 6);
-
             Assert.Equal(3, array.IndexOf(4));
         }
 
@@ -131,7 +111,6 @@ namespace CollectionsTests
         public void Test_IndexOf_Should_Return_Correct_Index_When_Array_Contains_2_Elements()
         {
             IntList array = AddedArray(2, 1);
-
             Assert.Equal(0, array.IndexOf(2));
         }
 
@@ -139,12 +118,11 @@ namespace CollectionsTests
         public void Test_IndexOf_Should_Return_Negative_When_Array_Does_NotContains_Given_Element()
         {
             IntList array = AddedArray(1, 2, 3, 4, 5, 6);
-
             Assert.Equal(-1, array.IndexOf(100));
         }
 
         [Fact]
-        public void Test_Clear_Should_Remove_all_elements_4_elements_Array()
+        public void Test_Clear_Should_Remove_all_elements_More_Then_4_elements_Array()
         {
             //Given
             IntList array = AddedArray(1, 2, 3, 4, 5, 6);
@@ -152,7 +130,7 @@ namespace CollectionsTests
             array.Clear();
             //Then
             Assert.Equal(0, array.Count);
-
+            Assert.Equal(-1, array.IndexOf(6));
         }
 
         [Fact]
@@ -205,7 +183,7 @@ namespace CollectionsTests
         public void Test_Insert_Should_Correctly_Insert_Element_Array_Has_Exactly_4_elements()
         {
             //Given
-            IntList array = AddedArray(1, 2, 3,4);
+            IntList array = AddedArray(1, 2, 3, 4);
             //When
             array.Insert(1, 100);
             //Then
@@ -213,7 +191,6 @@ namespace CollectionsTests
             Assert.Equal(1, array.IndexOf(100));
             Assert.Equal(4, array.IndexOf(4));
             Assert.Equal(6, array.Count);
-            
         }
 
         [Fact]
@@ -228,7 +205,6 @@ namespace CollectionsTests
             Assert.Equal(1, array.IndexOf(100));
             Assert.Equal(3, array.IndexOf(3));
             Assert.Equal(5, array.Count);
-
         }
 
         [Fact]
@@ -242,21 +218,6 @@ namespace CollectionsTests
             Assert.Equal(0, array.IndexOf(100));
             Assert.Equal(2, array.Count);
         }
-
-        /*  [Fact]
-          public void Test_Insert_Should_Correctly_Insert_Element_Index_Is_Larger_Then_Length()
-          {
-              //Given
-              IntArray array = AddedArray(1, 2, 3, 4);
-              //When
-              array.Insert(900, 100);
-              //Then
-              Assert.Equal(1, array.IndexOf(100));
-              Assert.Equal(3, array.IndexOf(4));
-              Assert.Equal(4, array.Count);
-
-          }*/
-
 
         [Fact]
         public void Test_Remove_Should_Correctly_Remove_Element_Simple_Array()
@@ -272,16 +233,17 @@ namespace CollectionsTests
         }
 
         [Fact]
-        public void Test_Remove_Should_Correctly_Remove_Element_5_Elements_Array()
+        public void Test_Remove_Should_Correctly_Remove_Elements_5_Elements_Array()
         {
             //Given
             IntList array = AddedArray(1, 2, 3, 4, 5);
             //When
             array.Remove(5);
+            array.Remove(2);
             //Then
             Assert.Equal(-1, array.IndexOf(5));
-            Assert.Equal(3, array.IndexOf(4));
-            Assert.Equal(4, array.Count);
+            Assert.Equal(2, array.IndexOf(4));
+            Assert.Equal(3, array.Count);
         }
 
 
@@ -307,6 +269,18 @@ namespace CollectionsTests
             //Then
             Assert.Equal(-1, array.IndexOf(2));
             Assert.Equal(2, array.Count);
+        }
+
+        [Fact]
+        public void Test_Exception_RemoveAt_Should_Throw_Exception_When_Index_Does_Not_Exist()
+        {
+            //Given
+            IntList array = new IntList();
+            //When
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => array.RemoveAt(1));
+            //Then
+            Assert.Equal("index", exception.ParamName);
+            Assert.Equal(0, array.Count);
         }
 
     }
