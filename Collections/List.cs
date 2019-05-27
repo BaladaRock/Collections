@@ -22,22 +22,22 @@ namespace CollectionsClasses
         {
             get
             {
-                CheckIfListIsEmpty();
-                CheckParameter(index);
+                ThrowIfListIsEmpty();
+                ThrowInvalidParameter(index);
                 return array[index];
             }
             set
             {
-                CheckIfListIsEmpty();
-                CheckParameter(index);
-                CheckIfListIsReadonly();
+                ThrowIfListIsEmpty();
+                ThrowInvalidParameter(index);
+                ThrowListIsReadonly();
                 array[index] = value;
             }
         }
 
         public virtual void Add(T item)
         {
-            CheckIfListIsReadonly();
+            ThrowListIsReadonly();
             EnsureCapacity();
             array[Count++] = item;
         }
@@ -62,8 +62,8 @@ namespace CollectionsClasses
 
         public virtual void Insert(int index, T item)
         {
-            CheckParameter(index);
-            CheckIfListIsReadonly();
+            ThrowInvalidParameter(index);
+            ThrowListIsReadonly();
             InsertItem(index, item);
         }
 
@@ -77,13 +77,13 @@ namespace CollectionsClasses
 
         public void Clear()
         {
-            CheckIfListIsReadonly();
+            ThrowListIsReadonly();
             Count = 0;
         }
 
         public bool Remove(T item)
         {
-            CheckIfListIsReadonly();
+            ThrowListIsReadonly();
             int index = IndexOf(item);
             if (index < 0)
                 return false;
@@ -94,8 +94,8 @@ namespace CollectionsClasses
 
         public void RemoveAt(int index)
         {
-            CheckParameter(index);
-            CheckIfListIsReadonly();
+            ThrowInvalidParameter(index);
+            ThrowListIsReadonly();
             ShiftLeft(index);
             Count--;
         }
@@ -136,28 +136,28 @@ namespace CollectionsClasses
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            CheckIfArrayIsNull(array);
-            CheckArrayIndex(arrayIndex);
-            CheckArrayCapacity(array, arrayIndex);
+            ThrowArrayIsNull(array);
+            ThrowInvalidArrayIndex(arrayIndex);
+            ThrowArrayCapacity(array, arrayIndex);
 
             int countElements = 0;
             for (int i = arrayIndex; i < Count + arrayIndex; i++)
                 array[i] = this.array[countElements++];
         }
 
-        private static void CheckArrayIndex(int arrayIndex)
+        private static void ThrowInvalidArrayIndex(int arrayIndex)
         {
             if (arrayIndex < 0)
                 throw new ArgumentOutOfRangeException(paramName: nameof(arrayIndex), message: "Index does not exist!");
         }
 
-        private void CheckIfArrayIsNull(T[] array)
+        private void ThrowArrayIsNull(T[] array)
         {
             if (array == null)
                 throw new ArgumentNullException(paramName: nameof(array));
         }
 
-        private void CheckArrayCapacity(T[] array, int arrayIndex)
+        private void ThrowArrayCapacity(T[] array, int arrayIndex)
         {
             if (arrayIndex < 0 || arrayIndex >= array.Length)
                 throw new ArgumentException(message: "Given index does not exist!", paramName: nameof(arrayIndex));
@@ -165,19 +165,19 @@ namespace CollectionsClasses
                 throw new ArgumentException(message: "Copying proccess cannot be initialised", paramName: nameof(array));
         }
 
-        private void CheckParameter(int index)
+        private void ThrowInvalidParameter(int index)
         {
             if (index < 0 || index > Count)
                 throw new ArgumentOutOfRangeException(paramName: nameof(index), message: "Index does not exist!");
         }
 
-        private void CheckIfListIsReadonly()
+        private void ThrowListIsReadonly()
         {
             if (IsReadOnly)
                 throw new NotSupportedException("List is readonly!");
         }
 
-        private void CheckIfListIsEmpty()
+        private void ThrowIfListIsEmpty()
         {
             if (Count == 0)
                 throw new ArgumentException(message: "List is empty!");
